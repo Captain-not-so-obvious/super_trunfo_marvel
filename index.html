@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marvel Super Trunfo | D6 Edition</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Game Styling -->
+    
+    <!-- Game Styling -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="game-header">
+            <h1 class="game-title">MARVEL <span>SUPER TRUNFO</span></h1>
+            <div class="header-controls">
+                <button id="btn-config" class="icon-button" title="Informações e Como Jogar">
+                    <svg viewBox="0 0 24 24" class="svg-icon">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                    </svg>
+                </button>
+                <button id="btn-restart" class="icon-button" title="Reiniciar Partida">
+                    <svg viewBox="0 0 24 24" class="svg-icon">
+                        <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Scoreboard HUD -->
+        <section class="game-hud">
+            <div class="hud-player">
+                <span class="hud-label">VOCÊ</span>
+                <span id="player-score" class="hud-value">15</span>
+                <div class="deck-indicator player-deck">
+                    <!-- Cards will be dynamically added as little lines/indicator -->
+                </div>
+            </div>
+            
+            <div class="hud-pile">
+                <span class="hud-label">POTE</span>
+                <span id="pile-score" class="hud-value empty">0</span>
+                <div class="pile-icon">
+                    <svg viewBox="0 0 24 24" class="svg-icon">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z"/>
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="hud-cpu">
+                <span class="hud-label">CPU</span>
+                <span id="cpu-score" class="hud-value">15</span>
+                <div class="deck-indicator cpu-deck"></div>
+            </div>
+        </section>
+
+        <!-- Main Board -->
+        <main class="game-board">
+            <!-- Player Card Area -->
+            <div class="card-area player-area">
+                <div class="area-title">Sua Carta</div>
+                <div id="player-card-container" class="card-container">
+                    <!-- Card dynamically rendered -->
+                </div>
+            </div>
+
+            <!-- Central Dice / Battle Status Area -->
+            <div class="central-area">
+                <!-- Status Banner -->
+                <div id="game-status" class="status-banner">
+                    Role o dado para iniciar a batalha!
+                </div>
+
+                <!-- Dice Container -->
+                <div class="dice-wrapper">
+                    <div id="dice" class="dice dice-1">
+                        <div class="face front">
+                            <span class="dice-value">1</span>
+                            <span class="dice-name">INT</span>
+                        </div>
+                        <div class="face back">
+                            <span class="dice-value">6</span>
+                            <span class="dice-name">CMB</span>
+                        </div>
+                        <div class="face right">
+                            <span class="dice-value">3</span>
+                            <span class="dice-name">VEL</span>
+                        </div>
+                        <div class="face left">
+                            <span class="dice-value">4</span>
+                            <span class="dice-name">DUR</span>
+                        </div>
+                        <div class="face top">
+                            <span class="dice-value">5</span>
+                            <span class="dice-name">ENE</span>
+                        </div>
+                        <div class="face bottom">
+                            <span class="dice-value">2</span>
+                            <span class="dice-name">FOR</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Roll Button -->
+                <button id="btn-roll" class="roll-button">
+                    <span class="roll-icon">🎲</span>
+                    <span class="roll-text">ROLAR ATRIBUTO</span>
+                </button>
+                
+                <!-- Action Button for Next Round -->
+                <button id="btn-next" class="roll-button hidden">
+                    <span class="roll-text">PRÓXIMA RODADA</span>
+                    <span class="roll-icon">➔</span>
+                </button>
+            </div>
+
+            <!-- CPU Card Area -->
+            <div class="card-area cpu-area">
+                <div class="area-title">Carta da CPU</div>
+                <div id="cpu-card-container" class="card-container">
+                    <!-- Card dynamically rendered -->
+                </div>
+            </div>
+        </main>
+
+        <!-- Audio toggle helper -->
+        <div class="audio-control">
+            <button id="btn-audio" class="audio-toggle" title="Ativar/Desativar Som">
+                <svg viewBox="0 0 24 24" class="svg-icon" id="audio-icon">
+                    <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Marvel Game Info Modal -->
+    <div id="modal-config" class="modal">
+        <div class="modal-content glass">
+            <span class="close-button">&times;</span>
+            <h2>Informações e Como Jogar</h2>
+            <div class="info-content" style="margin-top: 15px; color: var(--text-muted); font-size: 0.88rem; line-height: 1.6; display: flex; flex-direction: column; gap: 12px;">
+                <p>
+                    <strong>Marvel Super Trunfo D6</strong> é um jogo de cartas clássico baseado na planilha de 150 personagens.
+                </p>
+                <p>
+                    <strong>Mecânica:</strong> A cada rodada, você recebe uma carta. Você lança o dado D6 virtual para decidir qual atributo será disputado. A carta da CPU é revelada apenas após o dado parar.
+                </p>
+                <ul style="margin-left: 20px; display: flex; flex-direction: column; gap: 4px;">
+                    <li>🎲 <strong>1: Inteligência</strong> (Azul)</li>
+                    <li>🎲 <strong>2: Força</strong> (Vermelho)</li>
+                    <li>🎲 <strong>3: Velocidade</strong> (Amarelo)</li>
+                    <li>🎲 <strong>4: Durabilidade</strong> (Verde)</li>
+                    <li>🎲 <strong>5: Projeção de Energia</strong> (Roxo)</li>
+                    <li>🎲 <strong>6: Combate</strong> (Cinza)</li>
+                </ul>
+                <p>
+                    <strong>Imagens:</strong> As imagens das cartas são carregadas localmente a partir de um mapeamento seguro e aberto do <em>Superhero API</em>. Personagens que não possuem imagem exibem um placeholder premium com degradê gerado a partir do seu maior atributo!
+                </p>
+                <p>
+                    <strong>Privacidade:</strong> Suas configurações locais e estados de som são salvos de forma estritamente local no seu navegador.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load scripts -->
+    <script src="data/characters.js"></script>
+    <script src="data/images.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
